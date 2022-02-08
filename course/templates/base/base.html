@@ -17,13 +17,12 @@
    <title>{% block title %}{% endblock %}</title>
    <style>
       :root{
-         --background-yellow: #fbf4e7;
-         --primary: #253C6A;
-         --secondary: #6A5325;
-         --white: #ffffff;
-         --nav-link-text: rgba(255, 255, 255, 0.6);
+         --background-yellow: #9ea371;
+         --primary: #5a4655;
+         --secondary: #cb5b4b;
+         --white: #f6f3ee;
+         --nav-link-text: #abaea9;
          --other: ;
-
       }
       body {
          background-color: var(--background-yellow);
@@ -108,9 +107,7 @@
                   <div class="nav-link dropdown-toggle" id="settingsmenu" data-bs-toggle="dropdown" aria-haspopup="true"
                      aria-expanded="false">Settings</div>
                   <div class="dropdown-menu" aria-labelledby="settingsmenu">
-                     <a class="dropdown-item" href="{{ url_for('type.type_main') }}">Types</a>
-                     <a class="dropdown-item" href="{{ url_for('filament.filament_main') }}">Filaments</a>
-                     <a class="dropdown-item" href="{{ url_for('vendor.vendor_main') }}">Vendors</a>
+                     <!-- <a class="dropdown-item" href="{{ url_for('type.type_main') }}">Types</a> -->
                      <div class="dropdown-divider"></div>
                   </div>
                </div>
@@ -134,11 +131,11 @@
                      </a>
                   </li>
                   <li>
-                     <a class="dropdown-item" href="{{url_for('base.stateimport')}}">Import States
-                     </a>
+                     <hr class="dropdown-divider" />
                   </li>
                   <li>
-                     <a class="dropdown-item" href="{{url_for('base.typeimport')}}">Import Types of Filament</a>
+                     <a class="dropdown-item" href="{{url_for('base.stateimport')}}">Import States
+                     </a>
                   </li>
                   <li>
                      <hr class="dropdown-divider" />
