@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+{% from "_utilities.html" import render_field, render_select %}
+
+
+<!-- Title of the page (what goes on the tab when rendered) -->
+{% block title %}
+{% endblock %}
+
+<!-- Specific Style to this page -->
+{% block style %}
+{% endblock %}
+
+<!-- Any Page Menu Item go here -->
+{% block extra_menu_items %}    <!--class="nav-link"-->
+{% endblock extra_menu_items %}
+
+<!-- Any Action items go here -->
+{% block action_items %}  <!--class="dropdown-item"-->  
+{% endblock action_items %}
+
+<!-- Main Content -->
+{% block content %}
+<h1 style="color:var(--primary); text-align:center;">MASTER CATALOG</h1>
+
+<div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 g-4">
+    {% for item in catalogs %}
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-header">
+            <h5 class="card-title" style="color: var(--secondary);"><strong>{{item.course_name}}</strong></h5>
+        </div>
+        <div class="card-body">
+            {% if item.proctor_Class == True %}
+            <h6 class="card-title" style="color: var(--primary);"><strong>{{item.course_code}} <span class="text-muted small">(Proctor Required)</span></strong><br></h6>
+            {% else %}
+            <h6 class="card-title" style="color: var(--primary);"><strong>{{item.course_code}}</strong><br></h6>
+            {% endif %}
+          <p class="card-text small">{{item.description}}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">Prerequisites: {{item.prerequisites}}<br>
+            Credits: {{item.credits}}</small>
+
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+<!-- Scripts needed for this page -->
+{% block scripts %}
+
+<script>
+    var formErrors = {
+        %
+        if form.errors %
+    }
+    true {
+        %
+        else %
+    }
+    false {
+        %
+        endif %
+    };
+
+    $(document).ready(function () {
+        if (formErrors) {
+            $('.modal').modal('show');
+        }
+    });
+</script>
+{% endblock %}

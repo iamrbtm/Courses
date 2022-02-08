@@ -59,17 +59,10 @@ def create_app():
     # Blueprints
     from course.templates.base.base import base
     from course.auth import auth
-    from course.templates.filament.filament import bp_filament
-    from course.templates.types.type import bp_type
-    from course.templates.vendors.vendor import bp_vendor
-    from course.templates.machine.machine import bp_machine
-
+    from course.templates.catalog.catalog import catalog
     app.register_blueprint(base, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
-    app.register_blueprint(bp_filament, url_prefix="/filament")
-    app.register_blueprint(bp_type, url_prefix="/type")
-    app.register_blueprint(bp_vendor, url_prefix="/vendor")
-    app.register_blueprint(bp_machine, url_prefix="/machine")
+    app.register_blueprint(catalog, url_prefix="/catalog")
 
     from course.models import User
 

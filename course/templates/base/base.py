@@ -113,8 +113,8 @@ def stateimport():
     return redirect(url_for("base.home"))
 
 
-@base.route("/typeimport")
+@base.route("/catalogimport")
 @login_required
-def typeimport():
-    populate_types()
+def catalogimport():
+    populate_catalog()
     return redirect(url_for("base.home"))

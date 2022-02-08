@@ -36,6 +36,18 @@ class States(db.Model):
     state = db.Column(db.String(50))
     abr = db.Column(db.String(2))
 
+class Catalog(db.Model):
+    course_code = db.Column(db.String(25), primary_key=True)
+    course_name = db.Column(db.String(100))
+    description = db.Column(db.Text)
+    prerequisites = db.Column(db.String(25))
+    credits = db.Column(db.Integer)
+    proctor_Class = db.Column(db.Boolean, default=False)
+    userid = db.Column(db.Integer)
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    update_time = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+
+
 
 # class <name>(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

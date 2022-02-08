@@ -91,7 +91,7 @@
 <body>
    <nav class="navbar navbar-customclass sticky-top navbar-expand-md" style="z-index: 100">
       <div class="container-fluid">
-         <a class="navbar-brand" href="#">3D Printing</a>
+         <a class="navbar-brand" href="#">Course Planner</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
             aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -100,14 +100,16 @@
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                {% if current_user.is_authenticated %}
                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active" aria-current="page" href="{{url_for('base.home')}}">Home</a>
                </li>
-
+               <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{url_for('catalog.main')}}">Catalog</a>
+               </li>
                <div class="nav-item dropdown open">
                   <div class="nav-link dropdown-toggle" id="settingsmenu" data-bs-toggle="dropdown" aria-haspopup="true"
                      aria-expanded="false">Settings</div>
                   <div class="dropdown-menu" aria-labelledby="settingsmenu">
-                     <!-- <a class="dropdown-item" href="{{ url_for('type.type_main') }}">Types</a> -->
+                     <!-- <a class="dropdown-item" href="{{ url_for('base.home') }}"></a> -->
                      <div class="dropdown-divider"></div>
                   </div>
                </div>

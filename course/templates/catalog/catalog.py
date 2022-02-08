@@ -18,40 +18,19 @@ from course.forms import *
 from course.utilities import *
 import datetime, os
 
-bp_filament = Blueprint("filament", __name__)
+catalog = Blueprint("catalog", __name__)
 
 
-@bp_filament.route("/", methods=["GET", "POST"])
+@catalog.route("/", methods=["GET", "POST"])
 @login_required
-def filament_main():
-    form = Filament_form()
-    if form.validate_on_submit():
-        fil = Filament()
-        if form.picture.data:
-            filename = photos.save(form.picture.data)
-            ext = os.path.splitext(filename)
-            newfile = str(form.name.data).replace(" ", "_").lower()
-            fil.picture = newfile + ext[1]
-            os.rename(
-                "printing/static/images/" + filename,
-                "printing/static/images/" + newfile + ext[1],
-            )
-        form.populate_obj(fil)
-        fil.userid = current_user.id
-        fil.colorhex = convert_color_to_hex(form.color.data)
-        if form.url.data != "":
-            fil.url = shorten_url(form.url.data)
-        db.session.add(fil)
-        db.session.commit()
-        return redirect(url_for("filament.filament_main"))
-
-    fils = Filament.query.all()
-    types = Type.query.all()
-    context = {"user": User, "fils": fils, "types": types, "form": form}
-    return render_template("/filament/filament_main.html", **context)
+def main():
+    
+    catalogs = db.session.query(Catalog).filter(Catalog.userid == current_user.id).order_by(Catalog.course_code).all()
+    context = {"user": User, "catalogs":catalogs}
+    return render_template("/catalog/catalog_main.html", **context)
 
 
-@bp_filament.route("/edit/<int:id>", methods=["GET", "POST"])
+@catalog.route("/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def filament_edit(id):
 
@@ -89,7 +68,7 @@ def filament_edit(id):
     return render_template("/filament/filament_edit.html", **context)
 
 
-@bp_filament.route("/delete/<int:id>", methods=["GET", "POST"])
+@catalog.route("/delete/<int:id>", methods=["GET", "POST"])
 @login_required
 def filament_delete(id):
     db.session.query(Filament).filter(Filament.id == id).delete()

@@ -3,6 +3,7 @@ from course import db
 from course.models import *
 from matplotlib import colors
 from flask import flash
+from flask_login import current_user
 
 
 def format_tel(phone):
@@ -99,3 +100,28 @@ def shorten_url(longurl):
     fulljson = json.loads(response.text)
     link = fulljson["link"]
     return link
+
+def populate_catalog():
+    import csv
+    
+    with open('catalog_new.csv', newline='') as f:
+        reader = csv.reader(f)
+        data = list(reader)
+        
+    print(data)
+
+    for item in data:
+        if item[5] == '1': proc = True
+        else: proc = False
+        newcat = Catalog(
+        course_code = item[0],
+        course_name = item[1],
+        description = item[2],
+        prerequisites = item[3],
+        credits = item[4],
+        proctor_Class = proc,
+        userid = current_user.id,
+        )
+        db.session.add(newcat)
+        db.session.commit()
+        
