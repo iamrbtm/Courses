@@ -10,11 +10,11 @@ from flask import (
 from flask_login import login_required, current_user
 import flask_login
 from sqlalchemy.orm import session
-from printing.models import *
-from printing.templates.base.base_process import *
-from printing import db, photos
-from printing.forms import *
-from printing.utilities import *
+from course.models import *
+from course.templates.base.base_process import *
+from course import db, photos
+from course.forms import *
+from course.utilities import *
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 

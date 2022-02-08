@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from new import db
+from course import db
 from course.models import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint("auth", __name__)
+
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -51,7 +52,7 @@ def sign_up():
         elif len(email) < 4:
             flash("Email is invalid.", category="error")
         else:
-            new_user = User(
+            printing_user = User(
                 email=email,
                 username=username,
                 firstname=fname,
@@ -59,11 +60,11 @@ def sign_up():
                 password=generate_password_hash(password1, method="sha256"),
                 avatar_filename="placeholder.png",
             )
-            db.session.add(new_user)
+            db.session.add(printing_user)
             db.session.commit()
-            login_user(new_user, remember=True)
+            login_user(printing_user, remember=True)
             flash("User created!")
-            return render_template('base/home.html')
+            return render_template("base/home.html")
 
     return render_template("base/signup.html", user=current_user)
 

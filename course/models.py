@@ -1,4 +1,4 @@
-from new import db
+from course import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 import datetime, os
@@ -24,10 +24,18 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
 
+
+class apitoken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    token = db.Column(db.String(200))
+
+
 class States(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.String(50))
     abr = db.Column(db.String(2))
+
 
 # class <name>(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

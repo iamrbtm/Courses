@@ -4,8 +4,12 @@ Flask-SQLAlchemy
 Flask-Migrate
 Flask-Uploads
 Flask-Mail
+Flask-WTF
+matplotlib
 requests
 validators
 flask_debugtoolbar
 python-dotenv
 mysqlclient
+WTForms-SQLAlchemy
+email_validator

@@ -21,19 +21,21 @@ def create_app():
 
     # Flask-Uploads & Static
     if os.environ.get("UPLOADS_USE") == "True":
-        app.config["UPLOADED_PHOTOS_DEST"] = "new/static/images"
-        app.config["UPLOADED_UPLOADS_DEST"] = "new/static/uploads"
+        app.config["UPLOADED_PHOTOS_DEST"] = "printing/static/images"
+        app.config["UPLOADED_UPLOADS_DEST"] = "printing/static/uploads"
         configure_uploads(app, photos)
         configure_uploads(app, uploads)
+
     app._static_folder = "static"
 
     # Secrete Key
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
+    db.init_app(app)
+
     # Database Setup
     result = choose_database(app)
     if result[0]:
-        db.init_app(app)
         print("Created database!")
     else:
         print(result[1])
@@ -57,11 +59,20 @@ def create_app():
     # Blueprints
     from course.templates.base.base import base
     from course.auth import auth
+    from course.templates.filament.filament import bp_filament
+    from course.templates.types.type import bp_type
+    from course.templates.vendors.vendor import bp_vendor
+    from course.templates.machine.machine import bp_machine
 
     app.register_blueprint(base, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(bp_filament, url_prefix="/filament")
+    app.register_blueprint(bp_type, url_prefix="/type")
+    app.register_blueprint(bp_vendor, url_prefix="/vendor")
+    app.register_blueprint(bp_machine, url_prefix="/machine")
 
     from course.models import User
+
     db.create_all(app=app)
     # User Manager
 
